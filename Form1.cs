@@ -81,7 +81,7 @@ namespace CreateWebReport
             {
                 if (txtBoxInterval.Text == "") interval = 300000;
                 else interval = Convert.ToInt32(txtBoxInterval.Text) * 60000;
-            } catch (Exception ex)
+            } catch
             {
                 interval = 300000;
             }
@@ -131,6 +131,16 @@ namespace CreateWebReport
             string teamScoreFilePath;
             string distDir = "/var/www/html/" + htmlDir + "/";
             MDBInterface mdb2Html;
+            if (!File.Exists(mdbFile))
+            {
+                MessageBox.Show("MDB File (" + mdbFile + ")が見つかりません。");
+                return;
+            }
+            if (!Directory.Exists(workDir))
+            {
+                MessageBox.Show("作業フォルダー(" + workDir + ")が見つかりません。");
+                return;
+            }
             mdb2Html = new MDBInterface(mdbFile);
 
             ///Call init_machin_specific_variables
@@ -694,9 +704,9 @@ namespace CreateWebReport
                 string myQuery = "SELECT MAX(番号) as maxClass FROM クラス;";
 
                 OleDbCommand comm = new OleDbCommand(myQuery, conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         dr.Read();
@@ -716,42 +726,50 @@ namespace CreateWebReport
         {
             using (OleDbConnection connection = new OleDbConnection(magicWord + mdbFile))
             {
-                connection.Open();
-
-                string query = "SELECT プログラム.UID, プログラム.種目, プログラム.距離, 新記録.記録 FROM プログラム " +
-                               "INNER JOIN 新記録 ON プログラム.種目 = 新記録.種目 " +
-                               "AND プログラム.距離 = 新記録.距離 " +
-                               "AND プログラム.クラス番号 = 新記録.記録区分番号 " +
-                               "AND プログラム.性別 = 新記録.性別;";
-
-                using (OleDbCommand command = new OleDbCommand(query, connection))
+                try
                 {
-                    using (OleDbDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            GameRecordAvailable = true;
-                            while (reader.Read())
-                            {
-                                int uid = Convert.ToInt32(reader["UID"]);
-                                object recordValue = reader["記録"];
-                                if (recordValue == DBNull.Value)
-                                {
-                                    gameRecord4UID[uid] = NORECORDYET;
-                                }
-                                else
-                                {
-                                    gameRecord4UID[uid] = Misc.TimeStrToInt(recordValue.ToString().Trim());
-                                }
 
+                    connection.Open();
+
+                    string query = "SELECT プログラム.UID, プログラム.種目, プログラム.距離, 新記録.記録 FROM プログラム " +
+                                   "INNER JOIN 新記録 ON プログラム.種目 = 新記録.種目 " +
+                                   "AND プログラム.距離 = 新記録.距離 " +
+                                   "AND プログラム.クラス番号 = 新記録.記録区分番号 " +
+                                   "AND プログラム.性別 = 新記録.性別;";
+
+                    using (OleDbCommand command = new OleDbCommand(query, connection))
+                    {
+                        using (OleDbDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                GameRecordAvailable = true;
+                                while (reader.Read())
+                                {
+                                    int uid = Convert.ToInt32(reader["UID"]);
+                                    object recordValue = reader["記録"];
+                                    if (recordValue == DBNull.Value)
+                                    {
+                                        gameRecord4UID[uid] = NORECORDYET;
+                                    }
+                                    else
+                                    {
+                                        gameRecord4UID[uid] = Misc.TimeStrToInt(recordValue.ToString().Trim());
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                GameRecordAvailable = false;
                             }
                         }
-                        else
-                        {
-                            GameRecordAvailable = false;
-                        }
                     }
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
+
             }
         }
 
@@ -763,9 +781,9 @@ namespace CreateWebReport
                 string myQuery = "SELECT 番号,クラス名称 FROM クラス;";
 
                 OleDbCommand comm = new OleDbCommand(myQuery, conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while (dr.Read())
@@ -787,12 +805,18 @@ namespace CreateWebReport
             {
                 string myQuery = "SELECT MAX(競技番号) AS MAXPRGNO, MAX(UID) AS MAXUID FROM プログラム;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
-                using (var dr = comm.ExecuteReader())
+                try
                 {
-                    dr.Read();
-                    maxProgramNo = Misc.Obj2Int(dr["MAXPRGNO"]);
-                    maxUID = Misc.Obj2Int(dr["MAXUID"]);
+                    conn.Open();
+                    using (var dr = comm.ExecuteReader())
+                    {
+                        dr.Read();
+                        maxProgramNo = Misc.Obj2Int(dr["MAXPRGNO"]);
+                        maxUID = Misc.Obj2Int(dr["MAXUID"]);
+                    }
+                } catch
+                {
+                    MessageBox.Show("指定されたMDB (" + mdbFile + ") が見つかりません。\n ");
                 }
             }
         }
@@ -820,9 +844,9 @@ namespace CreateWebReport
                 string myQuery = "SELECT UID, 競技番号 , 種目, 距離, " +
                     "性別, 予決, クラス番号, Point FROM プログラム ;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while (dr.Read())
@@ -856,9 +880,9 @@ namespace CreateWebReport
             {
                 string myQuery = "SELECT 大会名１,開催地,始期間,終期間 FROM 大会設定;";
                 OleDbCommand comm = new OleDbCommand(myQuery, conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         dr.Read();
@@ -888,9 +912,9 @@ namespace CreateWebReport
                 string myQuery = "SELECT MAX(チーム番号) AS MAXRTEAMNUM FROM チームマスター;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
                 
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         dr.Read();
@@ -908,9 +932,9 @@ namespace CreateWebReport
             {
                 string myQuery = "SELECT チーム番号,チーム名 FROM チームマスター;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while(dr.Read()) { 
@@ -930,9 +954,9 @@ namespace CreateWebReport
                 string myQuery = "SELECT MAX(選手番号) AS MAXSNUM FROM 選手マスター;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
                 
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         dr.Read();
@@ -970,9 +994,9 @@ namespace CreateWebReport
             {
                 string myQuery = "SELECT DISTINCT 所属名称１ AS CLUBNAME FROM 選手マスター;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while (dr.Read()) {
@@ -995,9 +1019,9 @@ namespace CreateWebReport
                 int swimmerID = 0;
                 string myQuery = "SELECT 選手番号, カナ, 氏名, 所属１, 所属名称１ FROM 選手マスター;";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while (dr.Read())
@@ -1037,9 +1061,9 @@ namespace CreateWebReport
                   "ラップ１, ラップ２, ラップ３ " +
                   "FROM 記録マスター WHERE 選手番号>0 ORDER BY UID, 組, 水路; ";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
-                conn.Open();
                 try
                 {
+                    conn.Open();
                     using (var dr = comm.ExecuteReader())
                     {
                         while (dr.Read())
@@ -1264,21 +1288,28 @@ namespace CreateWebReport
             ref string rankingFile, ref string scoreFile)
         {
 
-            using (StreamReader reader = new StreamReader(filename,System.Text.Encoding.GetEncoding("shift_jis"))) {
-                string line = "";
-                while ( (line = reader.ReadLine()) != null )
-                {
-                    if (line == "") continue;
-                    if (line.Substring(0, 1) == "#") continue;
-                    string[] words = line.Split('>');
-                    if (words[0] == "mdbFilePath") mdbFilePath = words[1];
-                    if (words[0] == "workDir" ) workDir = words[1];
-                    if (words[0] == "htmlFilePath") htmlFilePath = words[1];
-                    if (words[0] == "indexFile") indexFile = words[1];
-                    if (words[0] == "kanproFile" ) kanproFile = words[1];
-                    if (words[0] == "rankingFile") rankingFile = words[1];
-                    if (words[0] == "scoreFile") scoreFile = words[1];
+            try
+            {
+
+                using (StreamReader reader = new StreamReader(filename,System.Text.Encoding.GetEncoding("shift_jis"))) {
+                    string line = "";
+                    while ( (line = reader.ReadLine()) != null )
+                    {
+                        if (line == "") continue;
+                        if (line.Substring(0, 1) == "#") continue;
+                        string[] words = line.Split('>');
+                        if (words[0] == "mdbFilePath") mdbFilePath = words[1];
+                        if (words[0] == "workDir" ) workDir = words[1];
+                        if (words[0] == "htmlFilePath") htmlFilePath = words[1];
+                        if (words[0] == "indexFile") indexFile = words[1];
+                        if (words[0] == "kanproFile" ) kanproFile = words[1];
+                        if (words[0] == "rankingFile") rankingFile = words[1];
+                        if (words[0] == "scoreFile") scoreFile = words[1];
+                    }
                 }
+            } catch
+            {
+                MessageBox.Show("cannot find " + filename);
             }
         }
         public static void WriteINIFile(string filename,     // CreateWebReport.ini
