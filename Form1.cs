@@ -22,12 +22,14 @@ namespace CreateWebReport
         {
             InitializeComponent();
             string mdbFile="", workDir="", htmlPath="",
-                indexFile="", prgResult="", rankingFile="", scoreFile="";
+                indexFile="", prgResult="", rankingFile="", scoreFile="",
+                secKeyFile="";
 
 
 
             Misc.ReadIniFile(iniFile, ref mdbFile, ref workDir,
-                ref htmlPath, ref indexFile, ref prgResult, ref rankingFile, ref scoreFile);
+                ref htmlPath, ref indexFile, ref prgResult, ref rankingFile,
+                ref scoreFile, ref secKeyFile);
             txtBoxMDBFile.Text = mdbFile;
             txtBoxWorkDir.Text = workDir;
             txtBoxHtmlPath.Text = htmlPath;
@@ -35,6 +37,7 @@ namespace CreateWebReport
             txtBoxPrgResult.Text = prgResult;
             txtBoxScoreFile.Text = scoreFile;
             txtBoxRanking.Text = rankingFile;
+            txtBoxKeyFile.Text = secKeyFile;
             InitTimer();
 
 
@@ -56,7 +59,7 @@ namespace CreateWebReport
             Cursor.Current = Cursors.WaitCursor;
             Misc.WriteINIFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
                 txtBoxHtmlPath.Text,txtBoxIndexFile.Text,txtBoxPrgResult.Text,txtBoxRanking.Text,
-                txtBoxScoreFile.Text);
+                txtBoxScoreFile.Text,txtBoxKeyFile.Text);
             Html.CreateHTML(
                 txtBoxMDBFile.Text,
                 txtBoxWorkDir.Text,
@@ -64,7 +67,8 @@ namespace CreateWebReport
                 txtBoxRanking.Text,
                 txtBoxPrgResult.Text,
                 txtBoxScoreFile.Text,
-                txtBoxHtmlPath.Text);
+                txtBoxHtmlPath.Text,
+                txtBoxKeyFile.Text);
             Cursor.Current = Cursors.Default;
 
         }
@@ -123,7 +127,8 @@ namespace CreateWebReport
             string rankingFile,//rankingFile is something like ossSpring2024r.Html
             string kanproFile, //kanproFile  is something like ossSpring2024p.Html
             string scoreFile,  //scoreFile   is something like ossSpring2024s.Html
-            string htmlDir)    //htmlDir     is something like rFlash
+            string htmlDir,    //htmlDir     is something like rFlash
+            string keyFile)
         {
             string indexFilePath;
             string rankingFilePath;
@@ -152,20 +157,20 @@ namespace CreateWebReport
             {
                 string srcFile = workDir + "\\" + indexFile;
                 CreateIndexHTML(mdb2Html, srcFile, rankingFile, kanproFile);
-                Misc.SendFile(srcFile, indexFilePath);
+                Misc.SendFile(srcFile, indexFilePath,keyFile);
             }
             if (rankingFile != string.Empty)
             {
                 string srcFile = workDir + "\\" + rankingFile;
                 CreateRankingFile(mdb2Html, srcFile, indexFile, kanproFile);
-                Misc.SendFile(srcFile, rankingFilePath);
+                Misc.SendFile(srcFile, rankingFilePath,keyFile);
             }
 
             if (kanproFile != string.Empty)
             {
                 string srcFile = workDir + "\\" + kanproFile;
                 CreateHTMLProgramFormat(mdb2Html, srcFile, indexFile, rankingFile);
-                Misc.SendFile(srcFile, kanproFilePath);
+                Misc.SendFile(srcFile, kanproFilePath,keyFile);
             }
             if (teamScoreFilePath != string.Empty)
             {
@@ -1282,10 +1287,11 @@ namespace CreateWebReport
             }
         }
         public static void ReadIniFile(string filename,
-            ref string mdbFilePath, 
-            ref string workDir,     ref string htmlFilePath,
-            ref string indexFile,   ref string kanproFile,
-            ref string rankingFile, ref string scoreFile)
+            ref string mdbFilePath,
+            ref string workDir, ref string htmlFilePath,
+            ref string indexFile, ref string kanproFile,
+            ref string rankingFile, ref string scoreFile,
+            ref string keyFile)
         {
 
             try
@@ -1305,6 +1311,7 @@ namespace CreateWebReport
                         if (words[0] == "kanproFile" ) kanproFile = words[1];
                         if (words[0] == "rankingFile") rankingFile = words[1];
                         if (words[0] == "scoreFile") scoreFile = words[1];
+                        if (words[0] == "keyFile") keyFile = words[1];
                     }
                 }
             } catch
@@ -1319,7 +1326,8 @@ namespace CreateWebReport
                                           string indexFile,    // xxxx.html
                                           string kanproFile,   // xxxxp.html
                                           string rankingFile,  // xxxxr.html
-                                          string scoreFile )
+                                          string scoreFile ,
+                                          string keyFile)
         {
             using (StreamWriter sw = new StreamWriter(filename, false, System.Text.Encoding.GetEncoding("shift_jis")))
             {
@@ -1330,29 +1338,34 @@ namespace CreateWebReport
                 sw.WriteLine($"kanproFile>{kanproFile}");
                 sw.WriteLine($"rankingFile>{rankingFile}");
                 sw.WriteLine($"scoreFile>{scoreFile}");
+                sw.WriteLine($"keyFile>{keyFile}");
             }
         }
-        public static void SendFile(string source, string destination)
+        public static void SendFile(string source, string destination,string keyFile)
         {
             string userName = "www-data";
             string host = "otsuswim.ddns.net";
-            string keyFile = @System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\.ssh\wwwKey.pem";
 
-            var connectionInfo = new PrivateKeyConnectionInfo(host, userName, new PrivateKeyFile(keyFile));
-            FileInfo fi = new FileInfo(source);
-            using (var client = new ScpClient(connectionInfo))
-            {
-                client.Connect();
-
-                using (var fileStream = fi.OpenRead())
+            try {
+                var connectionInfo = new PrivateKeyConnectionInfo(host, userName, new PrivateKeyFile(keyFile));
+ 
+                FileInfo fi = new FileInfo(source);
+                using (var client = new ScpClient(connectionInfo))
                 {
-                    client.Upload(fileStream, destination);
+                    client.Connect();
 
+                    using (var fileStream = fi.OpenRead())
+                    {
+                        client.Upload(fileStream, destination);
+
+                    }
+
+                    client.Disconnect();
                 }
-
-                client.Disconnect();
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + "秘密鍵ファイルが設定されていないと思われます。");
             }
-
         }
         public static string Obj2String(object obj)
         {
