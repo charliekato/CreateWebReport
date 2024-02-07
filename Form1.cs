@@ -77,7 +77,6 @@ namespace CreateWebReport
             CreateRun(null,null);
         }
 
-        static bool autoRunning=false;
         private void BtnAutoRunClick(object sender, EventArgs e)
         {
             int interval;
