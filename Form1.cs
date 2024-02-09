@@ -249,101 +249,102 @@ namespace CreateWebReport
                             for (int rn=0; rn<records.Count; rn++)
                             {
                                 Result result = mdb.GetResult(records[rn]);
+                                if (result.swimmerID>0) { 
                                 
-                                if (Misc.IsDQorDNS(result.reasonCode))
-                                {
-                                    sw.WriteLine("<tr><td valign=\"top\">    </td>");
-                                }
-                                else if (result.laneNo>=50)
-                                {
-                                    sw.WriteLine("<tr><td align=\"right\" valign=\"top\" style=\"padding-right: 2px\">補欠" +
-                                        (result.laneNo -49) + "</td>");
-                                }
-                                else
-                                {
-                                    sw.WriteLine("<tr><td align=\"right\" valign=\"top\" style=\"padding-right: 10px\">" + position + "</td>");
-                                }
-
-                                if (Misc.IsRelay(mdb.GetStyleFromUID(uid)))
-                                {
-                                    sw.WriteLine("<td valign=\"top\">" + HtmlName4Relay(mdb,result.rswimmer) + "</td>");
-                                    sw.WriteLine("<td valign=\"top\">" + mdb.GetRelayTeamName(result.swimmerID) + "</td>");
-                                }
-                                else
-                                {
-                                    sw.WriteLine("<td>" + mdb.GetSwimmerName(result.swimmerID) + "</td>");
-                                    sw.WriteLine("<td valign=\"top\">" + mdb.GetTeamName(result.swimmerID) + "</td>");
-                                }
-
-                                sw.WriteLine("<td valign=\"top\">");
-
-                                if (result.reasonCode > 0 )                          {
-                                    sw.WriteLine(CONSTANTS.reason[result.reasonCode] + "</td></tr>");
-                                }
-                                
-                                string timeStr = Misc.TimeIntToStr(result.goalTime);
-                                if (timeStr != "") 
-                                {
-                                    sw.WriteLine(timeStr);
-                                    sw.WriteLine( "</td>");
-
-                                    if (mdb.GameRecordAvailable)
+                                    if (Misc.IsDQorDNS(result.reasonCode))
                                     {
-                                        if (mdb.GetGameRecord(uid) > result.goalTime)
-                                        {
-                                            sw.WriteLine("<td valign=\"top\">大会新</td>");
-                                        }
+                                        sw.WriteLine("<tr><td valign=\"top\">    </td>");
+                                    }
+                                    else if (result.laneNo>=50)
+                                    {
+                                        sw.WriteLine("<tr><td align=\"right\" valign=\"top\" style=\"padding-right: 2px\">補欠" +
+                                            (result.laneNo -49) + "</td>");
+                                    }
+                                    else
+                                    {
+                                        sw.WriteLine("<tr><td align=\"right\" valign=\"top\" style=\"padding-right: 10px\">" + position + "</td>");
                                     }
 
-                                    sw.WriteLine("</tr>");
-
-                                    if (numberOfLap > 1)
+                                    if (Misc.IsRelay(mdb.GetStyleFromUID(uid)))
                                     {
-                                        thisLap = Misc.ParseLap(result.lapString);
-                                        prevLap = "";
-                                        splitCounter = 1;
+                                        sw.WriteLine("<td valign=\"top\">" + HtmlName4Relay(mdb,result.rswimmer) + "</td>");
+                                        sw.WriteLine("<td valign=\"top\">" + mdb.GetRelayTeamName(result.swimmerID) + "</td>");
+                                    }
+                                    else
+                                    {
+                                        sw.WriteLine("<td>" + mdb.GetSwimmerName(result.swimmerID) + "</td>");
+                                        sw.WriteLine("<td valign=\"top\">" + mdb.GetTeamName(result.swimmerID) + "</td>");
+                                    }
 
-                                        for (ithLap = 1; ithLap <= numberOfLap; ithLap++)
+                                    sw.WriteLine("<td valign=\"top\">");
+
+                                    if (result.reasonCode > 0 )                          {
+                                        sw.WriteLine(CONSTANTS.reason[result.reasonCode] + "</td></tr>");
+                                    }
+                                    
+                                    string timeStr = Misc.TimeIntToStr(result.goalTime);
+                                    if (timeStr != "") 
+                                    {
+                                        sw.WriteLine(timeStr);
+                                        sw.WriteLine( "</td>");
+
+                                        if (mdb.GameRecordAvailable)
                                         {
-                                            if (ithLap % 4 == 1)
+                                            if (mdb.GetGameRecord(uid) > result.goalTime)
                                             {
-                                                sw.WriteLine("<tr> <td colspan=4 align=\"center\"> <div class=\"lap_container\">");
-                                            }
-
-                                            sw.WriteLine("<div class=\"lap_time\">" + thisLap + "</div>");
-
-                                            if (ithLap == 1)
-                                            {
-                                                splitTime[splitCounter] = "";
-                                            }
-                                            else
-                                            {
-                                                splitTime[splitCounter] = "(" + Misc.TimeSubtract(thisLap, prevLap) + ")";
-                                            }
-
-                                            splitCounter++;
-
-                                            prevLap = thisLap;
-                                            thisLap = Misc.ParseLap("");
-
-                                            if (ithLap % 4 == 0)
-                                            {
-                                                sw.WriteLine("</div></td></tr>");
-                                                splitCounter = 1;
-                                                Misc.PrintSplitTime(sw, splitTime[1], splitTime[2], splitTime[3], splitTime[4]);
+                                                sw.WriteLine("<td valign=\"top\">大会新</td>");
                                             }
                                         }
 
-                                        if (ithLap % 4 == 3)
+                                        sw.WriteLine("</tr>");
+
+                                        if (numberOfLap > 1)
                                         {
-                                            sw.WriteLine("<div class=\"lap_time\">  </div><div class=\"lap_time\"> </div></td></tr>");
-                                            Misc.PrintSplitTime(sw, splitTime[1], splitTime[2], "", "");
+                                            thisLap = Misc.ParseLap(result.lapString);
+                                            prevLap = "";
+                                            splitCounter = 1;
+
+                                            for (ithLap = 1; ithLap <= numberOfLap; ithLap++)
+                                            {
+                                                if (ithLap % 4 == 1)
+                                                {
+                                                    sw.WriteLine("<tr> <td colspan=4 align=\"center\"> <div class=\"lap_container\">");
+                                                }
+
+                                                sw.WriteLine("<div class=\"lap_time\">" + thisLap + "</div>");
+
+                                                if (ithLap == 1)
+                                                {
+                                                    splitTime[splitCounter] = "";
+                                                }
+                                                else
+                                                {
+                                                    splitTime[splitCounter] = "(" + Misc.TimeSubtract(thisLap, prevLap) + ")";
+                                                }
+
+                                                splitCounter++;
+
+                                                prevLap = thisLap;
+                                                thisLap = Misc.ParseLap("");
+
+                                                if (ithLap % 4 == 0)
+                                                {
+                                                    sw.WriteLine("</div></td></tr>");
+                                                    splitCounter = 1;
+                                                    Misc.PrintSplitTime(sw, splitTime[1], splitTime[2], splitTime[3], splitTime[4]);
+                                                }
+                                            }
+
+                                            if (ithLap % 4 == 3)
+                                            {
+                                                sw.WriteLine("<div class=\"lap_time\">  </div><div class=\"lap_time\"> </div></td></tr>");
+                                                Misc.PrintSplitTime(sw, splitTime[1], splitTime[2], "", "");
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-
                         sw.WriteLine("</table><br><br>");
                     }
                 }
@@ -1063,7 +1064,7 @@ namespace CreateWebReport
                   "第１泳者, 第２泳者, 第３泳者, 第４泳者  " +
                   ", 組, 水路, 新記録印刷マーク, 事由入力ステータス, " +
                   "ラップ１, ラップ２, ラップ３ " +
-                  "FROM 記録マスター WHERE 選手番号>0 ORDER BY UID, 組, 水路; ";
+                  "FROM 記録マスター ORDER BY UID, 組, 水路; ";
                 OleDbCommand comm = new OleDbCommand(myQuery,conn);
                 try
                 {
