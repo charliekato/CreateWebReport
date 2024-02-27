@@ -18,25 +18,31 @@ namespace CreateWebReport
     {
         readonly static string myName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
         readonly string iniFile = myName + ".ini";
+        string mdbFile = "", workDir = "", htmlPath = "",
+                indexFile = "", prgResult = "", rankingFile = "", scoreFile = "",
+                secKeyFile = "";
+        string hostName="", port="22", userName="" ;
+
         public Form1()
         {
             InitializeComponent();
-            string mdbFile="", workDir="", htmlPath="",
-                indexFile="", prgResult="", rankingFile="", scoreFile="",
-                secKeyFile="";
-
+            this.Width = 680;
+            this.Height = 700;
 
 
             Misc.ReadIniFile(iniFile, ref mdbFile, ref workDir,
                 ref htmlPath, ref indexFile, ref prgResult, ref rankingFile,
-                ref scoreFile, ref secKeyFile);
+                ref scoreFile, ref hostName, ref port, ref userName, ref secKeyFile);
             txtBoxMDBFile.Text = mdbFile;
             txtBoxWorkDir.Text = workDir;
-            txtBoxHtmlPath.Text = htmlPath;
             txtBoxIndexFile.Text = indexFile;
             txtBoxPrgResult.Text = prgResult;
             txtBoxScoreFile.Text = scoreFile;
             txtBoxRanking.Text = rankingFile;
+            txtBoxHtmlPath.Text = htmlPath;
+            txtBoxHostName.Text = hostName;
+            txtBoxPort.Text = port;
+            txtBoxUserName.Text = userName;
             txtBoxKeyFile.Text = secKeyFile;
             InitTimer();
 
@@ -44,6 +50,9 @@ namespace CreateWebReport
         }
 
         public static Timer timer;
+
+
+
         public static EventHandler ev1;
         private void InitTimer()
         {
@@ -57,9 +66,10 @@ namespace CreateWebReport
         private void CreateRun(object sender,EventArgs ev)
         {
             Cursor.Current = Cursors.WaitCursor;
-            Misc.WriteINIFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
+            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
                 txtBoxHtmlPath.Text,txtBoxIndexFile.Text,txtBoxPrgResult.Text,txtBoxRanking.Text,
-                txtBoxScoreFile.Text,txtBoxKeyFile.Text);
+                txtBoxScoreFile.Text,txtBoxHostName.Text,txtBoxPort.Text,
+                txtBoxUserName.Text,txtBoxKeyFile.Text);
             Html.CreateHTML(
                 txtBoxMDBFile.Text,
                 txtBoxWorkDir.Text,
@@ -68,6 +78,9 @@ namespace CreateWebReport
                 txtBoxPrgResult.Text,
                 txtBoxScoreFile.Text,
                 txtBoxHtmlPath.Text,
+                txtBoxHostName.Text,
+                Convert.ToInt32(txtBoxPort.Text),
+                txtBoxUserName.Text,
                 txtBoxKeyFile.Text);
             Cursor.Current = Cursors.Default;
 
@@ -104,6 +117,38 @@ namespace CreateWebReport
         {
             this.Close();
         }
+        private void btnWorkDir_Click(object sender, EventArgs e)
+        {
+
+            workDir = Misc.GetFolder("working Folder(html fileを入れるフォルダー)を指定してください",workDir);
+            txtBoxWorkDir.Text = workDir;
+
+        }
+        private void btnMDBFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mdbFile = Misc.GetFilePath("MDBを選択してください", Path.GetDirectoryName(txtBoxMDBFile.Text),
+                    "MDB File (*.mdb)|*.mdb"); /**placeH**/
+            } catch
+            {
+                mdbFile = Misc.GetFilePath("MDBを選択してください", "C:\\", "MDB File (*.mdb)|*.mdb");
+            }
+            txtBoxMDBFile.Text = mdbFile;
+        }
+        private void btnKeyFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                secKeyFile = Misc.GetFilePath("秘密鍵Fileを選択してください", 
+                    Path.GetDirectoryName(txtBoxKeyFile.Text), "秘密鍵ファイル(*.pem)|*.pem|すべてのファイル|*.*"); 
+            } catch {
+                secKeyFile = Misc.GetFilePath("秘密鍵Fileを選択してください", 
+                    "C:\\", "秘密鍵ファイル(*.pem)|*.pem"); 
+            }
+            txtBoxKeyFile.Text = secKeyFile;
+        }
+
     }
     public class Result
     {
@@ -127,13 +172,16 @@ namespace CreateWebReport
             string kanproFile, //kanproFile  is something like ossSpring2024p.Html
             string scoreFile,  //scoreFile   is something like ossSpring2024s.Html
             string htmlDir,    //htmlDir     is something like rFlash
+            string hostName,
+            int port,
+            string userName,
             string keyFile)
         {
             string indexFilePath;
             string rankingFilePath;
             string kanproFilePath;
             string teamScoreFilePath;
-            string distDir = "/var/www/html/" + htmlDir + "/";
+            string distDir = htmlDir + "/";
             MDBInterface mdb2Html;
             if (!File.Exists(mdbFile))
             {
@@ -156,20 +204,23 @@ namespace CreateWebReport
             {
                 string srcFile = workDir + "\\" + indexFile;
                 CreateIndexHTML(mdb2Html, srcFile, rankingFile, kanproFile);
-                Misc.SendFile(srcFile, indexFilePath,keyFile);
+                if (keyFile!="")
+                Misc.SendFile(srcFile, indexFilePath,hostName,port,userName, keyFile );
             }
             if (rankingFile != string.Empty)
             {
                 string srcFile = workDir + "\\" + rankingFile;
                 CreateRankingFile(mdb2Html, srcFile, indexFile, kanproFile);
-                Misc.SendFile(srcFile, rankingFilePath,keyFile);
+                if (keyFile!="")
+                Misc.SendFile(srcFile, rankingFilePath,hostName,port,userName,keyFile);
             }
 
             if (kanproFile != string.Empty)
             {
                 string srcFile = workDir + "\\" + kanproFile;
                 CreateHTMLProgramFormat(mdb2Html, srcFile, indexFile, rankingFile);
-                Misc.SendFile(srcFile, kanproFilePath,keyFile);
+                if (keyFile!="")
+                Misc.SendFile(srcFile, kanproFilePath,hostName,port,userName,keyFile);
             }
             if (teamScoreFilePath != string.Empty)
             {
@@ -434,7 +485,9 @@ namespace CreateWebReport
 
                         if (record.reasonCode==0)
                         writer.WriteLine("<td align=\"right\">" + Misc.TimeIntToStr(record.goalTime) + "</td>");
-                        else 
+                        else if (record.reasonCode==4)
+                        writer.WriteLine("<td align=\"right\">" + Misc.TimeIntToStr(record.goalTime) + "(op)</td>");
+                        else
                         writer.WriteLine("<td align=\"right\">" + CONSTANTS.reason[record.reasonCode] + "</td>");
 
 
@@ -484,16 +537,16 @@ namespace CreateWebReport
             writer.WriteLine($"<meta charset=\"Shift_JIS\"><title>{mdb.GetEventName()} </title>");
             if (fType == 1)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/rFlash/css/cman.css\">");
-                writer.WriteLine("<script type=\"text/javascript\" src=\"/rFlash/cman.js\"></script>");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/cman.css\">");
+                writer.WriteLine("<script type=\"text/javascript\" src=\"/cman.js\"></script>");
             }
             if (fType == 2)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/rFlash/css/swim.css\">");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/swim.css\">");
             }
             if (fType == 3)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/rFlash/css/swimcall.css\">");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/swimcall.css\">");
             }
             writer.WriteLine("</head>");
             writer.WriteLine("<body>");
@@ -1085,7 +1138,7 @@ namespace CreateWebReport
                             result.rswimmer[3] = Misc.Obj2Int(dr["第４泳者"]);
                             result.laneNo = Misc.Obj2Int(dr["水路"]);
                             result.reasonCode = Misc.Obj2Int(dr["事由入力ステータス"]);
-                            if (result.reasonCode == 0)
+                            if ((result.reasonCode == 0) || (result.reasonCode == 4))
                             {
                                 result.goalTime = Misc.TimeStrToInt(Misc.Obj2String(dr["ゴール"]));
                             } 
@@ -1291,7 +1344,8 @@ namespace CreateWebReport
             ref string workDir, ref string htmlFilePath,
             ref string indexFile, ref string kanproFile,
             ref string rankingFile, ref string scoreFile,
-            ref string keyFile)
+            ref string hostName, ref string port, 
+            ref string userName, ref string keyFile )
         {
 
             try
@@ -1311,6 +1365,9 @@ namespace CreateWebReport
                         if (words[0] == "kanproFile" ) kanproFile = words[1];
                         if (words[0] == "rankingFile") rankingFile = words[1];
                         if (words[0] == "scoreFile") scoreFile = words[1];
+                        if (words[0] == "hostName") hostName = words[1];
+                        if (words[0] =="port") port = words[1];
+                        if (words[0] == "userName") userName = words[1];
                         if (words[0] == "keyFile") keyFile = words[1];
                     }
                 }
@@ -1319,7 +1376,7 @@ namespace CreateWebReport
                 MessageBox.Show("cannot find " + filename);
             }
         }
-        public static void WriteINIFile(string filename,     // CreateWebReport.ini
+        public static void WriteIniFile(string filename,     // CreateWebReport.ini
                                           string mdbFilePath,  // C:Users\ykato\OneDrive\SwimDB\DB2024\Swim32.mdb 
                                           string workDir,      // C:Users\ykato\temp
                                           string htmlFilePath, // usually rFlash/xxxx
@@ -1327,6 +1384,9 @@ namespace CreateWebReport
                                           string kanproFile,   // xxxxp.html
                                           string rankingFile,  // xxxxr.html
                                           string scoreFile ,
+                                          string hostName,
+                                          string port,
+                                          string userName,
                                           string keyFile)
         {
             using (StreamWriter sw = new StreamWriter(filename, false, System.Text.Encoding.GetEncoding("shift_jis")))
@@ -1338,16 +1398,29 @@ namespace CreateWebReport
                 sw.WriteLine($"kanproFile>{kanproFile}");
                 sw.WriteLine($"rankingFile>{rankingFile}");
                 sw.WriteLine($"scoreFile>{scoreFile}");
+                sw.WriteLine($"hostName>{hostName}");
+                sw.WriteLine($"port>{port}");
+                sw.WriteLine($"userName>{userName}");
                 sw.WriteLine($"keyFile>{keyFile}");
             }
         }
-        public static void SendFile(string source, string destination,string keyFile)
+        //
+        /// <summary>
+        /// SendFile sends source file to webserver.
+        /// </summary>
+        /// <param name="source">Source html file which is to be sent to the server(host).</param>
+        /// <param name="destination">server directory in which source html file is stored</param>
+        /// <param name="hostName">web server host name or ip address. Default: otsuswim.ddns.net</param>
+        /// <param name="port">web server ssh port number (usually 22) </param>
+        /// <param name="userName">user name of hte server. Default: www-data</param>
+        /// <param name="keyFile">Secret file that corresponds to the server public key.</param>
+        // 
+        public static void SendFile(string source, string destination,string hostName,int port, string userName, 
+            string keyFile)
         {
-            string userName = "www-data";
-            string host = "otsuswim.ddns.net";
 
             try {
-                var connectionInfo = new PrivateKeyConnectionInfo(host, userName, new PrivateKeyFile(keyFile));
+                var connectionInfo = new PrivateKeyConnectionInfo(hostName, port, userName, new PrivateKeyFile(keyFile));
  
                 FileInfo fi = new FileInfo(source);
                 using (var client = new ScpClient(connectionInfo))
@@ -1364,7 +1437,7 @@ namespace CreateWebReport
                 }
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n" + "秘密鍵ファイルが設定されていないと思われます。");
+                MessageBox.Show(ex.Message + "\n" + "Web serverにはsend しませんでした。");
             }
         }
         public static string Obj2String(object obj)
@@ -1399,7 +1472,46 @@ namespace CreateWebReport
                     return 0; // Default to 0 if distance is not recognized
             }
         }
+        public static string GetFilePath(string title ="ファイルを選択してください",
+                            string initFolder=@"C:\",
+                            string option="テキストファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*"
+                            )
+        {
+            string selectedFilePath = "";
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
+            // ダイアログのタイトルを設定
+            openFileDialog.Title = title;
+
+            // 初期ディレクトリを設定（オプション）
+            openFileDialog.InitialDirectory = initFolder;
+            // initFolder=@"C:\"
+
+            // ファイルの種類を指定（オプション）
+            openFileDialog.Filter = option;
+
+            // ユーザーが選択したファイルを取得
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedFilePath = openFileDialog.FileName;
+            }
+            return selectedFilePath;
+        }
+        public static string GetFolder(string title="フォルダーを選択してください",
+                        string initFolder=@"C:\")
+        {
+            string selectedFolderPath = "";
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            // ダイアログのタイトルを設定
+            folderBrowserDialog.Description = title;
+            // 初期フォルダーを設定（オプション）
+            folderBrowserDialog.SelectedPath = initFolder;
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedFolderPath = folderBrowserDialog.SelectedPath;
+            }
+            return selectedFolderPath;
+        }
     }
     public class CONSTANTS
     {
@@ -1409,7 +1521,8 @@ namespace CreateWebReport
         public static readonly int DNS = 1;
         public static readonly int DQ = 2;
         public static readonly int DNSM = 3;
-        public static readonly string[] reason = new string[] { "", "棄権", "失格", "途中退水" };
+        public static readonly string[] reason = new string[] { "", "棄権", "失格", "途中退水","オープン",
+            "OP(失格)","OP(棄権)" };
     }
     
 }
