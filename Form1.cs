@@ -115,7 +115,11 @@ namespace CreateWebReport
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
+                txtBoxHtmlPath.Text,txtBoxIndexFile.Text,txtBoxPrgResult.Text,txtBoxRanking.Text,
+                txtBoxScoreFile.Text,txtBoxHostName.Text,txtBoxPort.Text,
+                txtBoxUserName.Text,txtBoxKeyFile.Text);
+this.Close();
         }
         private void btnWorkDir_Click(object sender, EventArgs e)
         {
