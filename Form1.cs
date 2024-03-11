@@ -17,7 +17,8 @@ namespace CreateWebReport
     public partial class Form1 : Form
     {
         readonly static string myName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-        readonly string iniFile = myName + ".ini";
+        readonly string iniFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+
+             "\\"+ myName + "\\" + myName+ ".ini";
         string mdbFile = "", workDir = "", htmlPath = "",
                 indexFile = "", prgResult = "", rankingFile = "", scoreFile = "",
                 secKeyFile = "";

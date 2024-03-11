@@ -305,7 +305,7 @@
             // btnMDBFile
             // 
             this.btnMDBFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnMDBFile.Location = new System.Drawing.Point(1260, 126);
+            this.btnMDBFile.Location = new System.Drawing.Point(1258, 126);
             this.btnMDBFile.Name = "btnMDBFile";
             this.btnMDBFile.Size = new System.Drawing.Size(101, 52);
             this.btnMDBFile.TabIndex = 25;
@@ -327,7 +327,7 @@
             // btnKeyFile
             // 
             this.btnKeyFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnKeyFile.Location = new System.Drawing.Point(1266, 782);
+            this.btnKeyFile.Location = new System.Drawing.Point(1258, 790);
             this.btnKeyFile.Name = "btnKeyFile";
             this.btnKeyFile.Size = new System.Drawing.Size(104, 48);
             this.btnKeyFile.TabIndex = 28;
