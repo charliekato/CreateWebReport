@@ -17,9 +17,10 @@ namespace CreateWebReport
     public partial class Form1 : Form
     {
         readonly static string myName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-        readonly string iniFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+
-             "\\"+ myName + "\\" + myName+ ".ini";
-        string mdbFile = "", workDir = "", htmlPath = "",
+        readonly static string workDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+
+             "\\"+ myName + "\\" ;
+        readonly static string iniFile = workDir+ myName+ ".ini";
+        string mdbFile = "",  htmlPath = "",
                 indexFile = "", prgResult = "", rankingFile = "", scoreFile = "",
                 secKeyFile = "";
         string hostName="", port="22", userName="" ;
@@ -31,11 +32,10 @@ namespace CreateWebReport
             this.Height = 700;
 
 
-            Misc.ReadIniFile(iniFile, ref mdbFile, ref workDir,
+            Misc.ReadIniFile(iniFile, ref mdbFile, 
                 ref htmlPath, ref indexFile, ref prgResult, ref rankingFile,
                 ref scoreFile, ref hostName, ref port, ref userName, ref secKeyFile);
             txtBoxMDBFile.Text = mdbFile;
-            txtBoxWorkDir.Text = workDir;
             txtBoxIndexFile.Text = indexFile;
             txtBoxPrgResult.Text = prgResult;
             txtBoxScoreFile.Text = scoreFile;
@@ -67,13 +67,13 @@ namespace CreateWebReport
         private void CreateRun(object sender,EventArgs ev)
         {
             Cursor.Current = Cursors.WaitCursor;
-            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
+            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,
                 txtBoxHtmlPath.Text,txtBoxIndexFile.Text,txtBoxPrgResult.Text,txtBoxRanking.Text,
                 txtBoxScoreFile.Text,txtBoxHostName.Text,txtBoxPort.Text,
                 txtBoxUserName.Text,txtBoxKeyFile.Text);
             Html.CreateHTML(
                 txtBoxMDBFile.Text,
-                txtBoxWorkDir.Text,
+                workDir,
                 txtBoxIndexFile.Text,
                 txtBoxRanking.Text,
                 txtBoxPrgResult.Text,
@@ -116,18 +116,11 @@ namespace CreateWebReport
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,txtBoxWorkDir.Text,
+            Misc.WriteIniFile(iniFile,txtBoxMDBFile.Text,
                 txtBoxHtmlPath.Text,txtBoxIndexFile.Text,txtBoxPrgResult.Text,txtBoxRanking.Text,
                 txtBoxScoreFile.Text,txtBoxHostName.Text,txtBoxPort.Text,
                 txtBoxUserName.Text,txtBoxKeyFile.Text);
 this.Close();
-        }
-        private void btnWorkDir_Click(object sender, EventArgs e)
-        {
-
-            workDir = Misc.GetFolder("working Folder(html fileを入れるフォルダー)を指定してください",workDir);
-            txtBoxWorkDir.Text = workDir;
-
         }
         private void btnMDBFile_Click(object sender, EventArgs e)
         {
@@ -1346,7 +1339,7 @@ this.Close();
         }
         public static void ReadIniFile(string filename,
             ref string mdbFilePath,
-            ref string workDir, ref string htmlFilePath,
+             ref string htmlFilePath,
             ref string indexFile, ref string kanproFile,
             ref string rankingFile, ref string scoreFile,
             ref string hostName, ref string port, 
@@ -1364,7 +1357,6 @@ this.Close();
                         if (line.Substring(0, 1) == "#") continue;
                         string[] words = line.Split('>');
                         if (words[0] == "mdbFilePath") mdbFilePath = words[1];
-                        if (words[0] == "workDir" ) workDir = words[1];
                         if (words[0] == "htmlFilePath") htmlFilePath = words[1];
                         if (words[0] == "indexFile") indexFile = words[1];
                         if (words[0] == "kanproFile" ) kanproFile = words[1];
@@ -1383,7 +1375,6 @@ this.Close();
         }
         public static void WriteIniFile(string filename,     // CreateWebReport.ini
                                           string mdbFilePath,  // C:Users\ykato\OneDrive\SwimDB\DB2024\Swim32.mdb 
-                                          string workDir,      // C:Users\ykato\temp
                                           string htmlFilePath, // usually rFlash/xxxx
                                           string indexFile,    // xxxx.html
                                           string kanproFile,   // xxxxp.html
@@ -1397,7 +1388,6 @@ this.Close();
             using (StreamWriter sw = new StreamWriter(filename, false, System.Text.Encoding.GetEncoding("shift_jis")))
             {
                 sw.WriteLine($"mdbFilePath>{mdbFilePath}");
-                sw.WriteLine($"workDir>{workDir}");
                 sw.WriteLine($"htmlFilePath>{htmlFilePath}");
                 sw.WriteLine($"indexFile>{indexFile}");
                 sw.WriteLine($"kanproFile>{kanproFile}");

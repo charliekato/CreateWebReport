@@ -45,14 +45,11 @@
             this.txtBoxScoreFile = new System.Windows.Forms.TextBox();
             this.lblScoreFile = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.txtBoxWorkDir = new System.Windows.Forms.TextBox();
-            this.lblWorkDir = new System.Windows.Forms.Label();
             this.btnQuit = new System.Windows.Forms.Button();
             this.lblAutoRun = new System.Windows.Forms.Label();
             this.txtBoxKeyFile = new System.Windows.Forms.TextBox();
             this.lblKeyFile = new System.Windows.Forms.Label();
             this.btnMDBFile = new System.Windows.Forms.Button();
-            this.btnWorkDir = new System.Windows.Forms.Button();
             this.btnKeyFile = new System.Windows.Forms.Button();
             this.txtBoxHostName = new System.Windows.Forms.TextBox();
             this.lblHostName = new System.Windows.Forms.Label();
@@ -89,7 +86,7 @@
             // 
             this.lblIndexFile.AutoSize = true;
             this.lblIndexFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblIndexFile.Location = new System.Drawing.Point(126, 278);
+            this.lblIndexFile.Location = new System.Drawing.Point(126, 206);
             this.lblIndexFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIndexFile.Name = "lblIndexFile";
             this.lblIndexFile.Size = new System.Drawing.Size(216, 33);
@@ -100,7 +97,7 @@
             // 
             this.lblPrgResult.AutoSize = true;
             this.lblPrgResult.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblPrgResult.Location = new System.Drawing.Point(126, 348);
+            this.lblPrgResult.Location = new System.Drawing.Point(126, 276);
             this.lblPrgResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrgResult.Name = "lblPrgResult";
             this.lblPrgResult.Size = new System.Drawing.Size(303, 33);
@@ -111,7 +108,7 @@
             // 
             this.lblRanking.AutoSize = true;
             this.lblRanking.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblRanking.Location = new System.Drawing.Point(126, 422);
+            this.lblRanking.Location = new System.Drawing.Point(126, 350);
             this.lblRanking.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRanking.Name = "lblRanking";
             this.lblRanking.Size = new System.Drawing.Size(177, 33);
@@ -139,7 +136,7 @@
             // txtBoxIndexFile
             // 
             this.txtBoxIndexFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxIndexFile.Location = new System.Drawing.Point(453, 272);
+            this.txtBoxIndexFile.Location = new System.Drawing.Point(453, 200);
             this.txtBoxIndexFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxIndexFile.Name = "txtBoxIndexFile";
             this.txtBoxIndexFile.Size = new System.Drawing.Size(303, 39);
@@ -148,7 +145,7 @@
             // txtBoxPrgResult
             // 
             this.txtBoxPrgResult.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxPrgResult.Location = new System.Drawing.Point(453, 344);
+            this.txtBoxPrgResult.Location = new System.Drawing.Point(453, 272);
             this.txtBoxPrgResult.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxPrgResult.Name = "txtBoxPrgResult";
             this.txtBoxPrgResult.Size = new System.Drawing.Size(303, 39);
@@ -157,7 +154,7 @@
             // txtBoxRanking
             // 
             this.txtBoxRanking.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxRanking.Location = new System.Drawing.Point(453, 416);
+            this.txtBoxRanking.Location = new System.Drawing.Point(453, 344);
             this.txtBoxRanking.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxRanking.Name = "txtBoxRanking";
             this.txtBoxRanking.Size = new System.Drawing.Size(303, 39);
@@ -211,7 +208,7 @@
             // txtBoxScoreFile
             // 
             this.txtBoxScoreFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxScoreFile.Location = new System.Drawing.Point(453, 485);
+            this.txtBoxScoreFile.Location = new System.Drawing.Point(453, 413);
             this.txtBoxScoreFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxScoreFile.Name = "txtBoxScoreFile";
             this.txtBoxScoreFile.Size = new System.Drawing.Size(303, 39);
@@ -221,7 +218,7 @@
             // 
             this.lblScoreFile.AutoSize = true;
             this.lblScoreFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblScoreFile.Location = new System.Drawing.Point(126, 489);
+            this.lblScoreFile.Location = new System.Drawing.Point(126, 417);
             this.lblScoreFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblScoreFile.Name = "lblScoreFile";
             this.lblScoreFile.Size = new System.Drawing.Size(151, 33);
@@ -238,26 +235,6 @@
             this.lblTitle.Size = new System.Drawing.Size(472, 54);
             this.lblTitle.TabIndex = 18;
             this.lblTitle.Text = "WEB速報作成ツール";
-            // 
-            // txtBoxWorkDir
-            // 
-            this.txtBoxWorkDir.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxWorkDir.Location = new System.Drawing.Point(453, 196);
-            this.txtBoxWorkDir.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.txtBoxWorkDir.Name = "txtBoxWorkDir";
-            this.txtBoxWorkDir.Size = new System.Drawing.Size(721, 39);
-            this.txtBoxWorkDir.TabIndex = 20;
-            // 
-            // lblWorkDir
-            // 
-            this.lblWorkDir.AutoSize = true;
-            this.lblWorkDir.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblWorkDir.Location = new System.Drawing.Point(126, 199);
-            this.lblWorkDir.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblWorkDir.Name = "lblWorkDir";
-            this.lblWorkDir.Size = new System.Drawing.Size(197, 33);
-            this.lblWorkDir.TabIndex = 19;
-            this.lblWorkDir.Text = "作業フォルダー";
             // 
             // btnQuit
             // 
@@ -313,17 +290,6 @@
             this.btnMDBFile.UseVisualStyleBackColor = true;
             this.btnMDBFile.Click += new System.EventHandler(this.btnMDBFile_Click);
             // 
-            // btnWorkDir
-            // 
-            this.btnWorkDir.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnWorkDir.Location = new System.Drawing.Point(1258, 196);
-            this.btnWorkDir.Name = "btnWorkDir";
-            this.btnWorkDir.Size = new System.Drawing.Size(105, 48);
-            this.btnWorkDir.TabIndex = 26;
-            this.btnWorkDir.Text = "選択";
-            this.btnWorkDir.UseVisualStyleBackColor = true;
-            this.btnWorkDir.Click += new System.EventHandler(this.btnWorkDir_Click);
-            // 
             // btnKeyFile
             // 
             this.btnKeyFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -359,7 +325,7 @@
             // 
             this.lblNote.AutoSize = true;
             this.lblNote.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblNote.Location = new System.Drawing.Point(312, 551);
+            this.lblNote.Location = new System.Drawing.Point(312, 513);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(796, 33);
             this.lblNote.TabIndex = 31;
@@ -419,14 +385,11 @@
             this.Controls.Add(this.txtBoxHostName);
             this.Controls.Add(this.lblHostName);
             this.Controls.Add(this.btnKeyFile);
-            this.Controls.Add(this.btnWorkDir);
             this.Controls.Add(this.btnMDBFile);
             this.Controls.Add(this.txtBoxKeyFile);
             this.Controls.Add(this.lblKeyFile);
             this.Controls.Add(this.lblAutoRun);
             this.Controls.Add(this.btnQuit);
-            this.Controls.Add(this.txtBoxWorkDir);
-            this.Controls.Add(this.lblWorkDir);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.txtBoxScoreFile);
             this.Controls.Add(this.lblScoreFile);
@@ -471,14 +434,11 @@
         private System.Windows.Forms.TextBox txtBoxScoreFile;
         private System.Windows.Forms.Label lblScoreFile;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.TextBox txtBoxWorkDir;
-        private System.Windows.Forms.Label lblWorkDir;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Label lblAutoRun;
         private System.Windows.Forms.TextBox txtBoxKeyFile;
         private System.Windows.Forms.Label lblKeyFile;
         private System.Windows.Forms.Button btnMDBFile;
-        private System.Windows.Forms.Button btnWorkDir;
         private System.Windows.Forms.Button btnKeyFile;
         private System.Windows.Forms.TextBox txtBoxHostName;
         private System.Windows.Forms.Label lblHostName;
