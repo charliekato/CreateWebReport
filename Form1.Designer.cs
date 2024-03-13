@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblMdbFile = new System.Windows.Forms.Label();
             this.lblHtmlPath = new System.Windows.Forms.Label();
             this.lblIndexFile = new System.Windows.Forms.Label();
@@ -58,6 +59,9 @@
             this.lblUserName = new System.Windows.Forms.Label();
             this.txtBoxPort = new System.Windows.Forms.TextBox();
             this.lblPort = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblMdbFile
@@ -360,6 +364,7 @@
             this.txtBoxPort.Size = new System.Drawing.Size(76, 39);
             this.txtBoxPort.TabIndex = 35;
             this.txtBoxPort.Text = "22";
+            this.toolTip1.SetToolTip(this.txtBoxPort, "sshのポート番号");
             // 
             // lblPort
             // 
@@ -372,11 +377,24 @@
             this.lblPort.TabIndex = 34;
             this.lblPort.Text = "Port";
             // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnBrowse.Location = new System.Drawing.Point(979, 401);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(142, 50);
+            this.btnBrowse.TabIndex = 36;
+            this.btnBrowse.Text = "確認";
+            this.toolTip1.SetToolTip(this.btnBrowse, "ブラウザーで確認する");
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1542, 1236);
+            this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtBoxPort);
             this.Controls.Add(this.lblPort);
             this.Controls.Add(this.txtBoxUserName);
@@ -447,6 +465,9 @@
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TextBox txtBoxPort;
         private System.Windows.Forms.Label lblPort;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }
 

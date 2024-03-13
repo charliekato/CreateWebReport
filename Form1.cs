@@ -42,6 +42,10 @@ namespace CreateWebReport
             txtBoxRanking.Text = rankingFile;
             txtBoxHtmlPath.Text = htmlPath;
             txtBoxHostName.Text = hostName;
+            if (port=="")
+            {
+                port = "22";
+            }
             txtBoxPort.Text = port;
             txtBoxUserName.Text = userName;
             txtBoxKeyFile.Text = secKeyFile;
@@ -52,7 +56,13 @@ namespace CreateWebReport
 
         public static Timer timer;
 
-
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            var proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = workDir + indexFile;
+            proc.StartInfo.UseShellExecute = true;
+            proc.Start();
+        }
 
         public static EventHandler ev1;
         private void InitTimer()
