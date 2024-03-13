@@ -535,16 +535,16 @@ this.Close();
             writer.WriteLine($"<meta charset=\"Shift_JIS\"><title>{mdb.GetEventName()} </title>");
             if (fType == 1)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/cman.css\">");
-                writer.WriteLine("<script type=\"text/javascript\" src=\"/cman.js\"></script>");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"css/cman.css\">");
+                writer.WriteLine("<script type=\"text/javascript\" src=\"cman.js\"></script>");
             }
             if (fType == 2)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/swim.css\">");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"css/swim.css\">");
             }
             if (fType == 3)
             {
-                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"/css/swimcall.css\">");
+                writer.WriteLine("<link rel=\"stylesheet\" media=\"all\" href=\"css/swimcall.css\">");
             }
             writer.WriteLine("</head>");
             writer.WriteLine("<body>");
