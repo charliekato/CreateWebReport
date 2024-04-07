@@ -1263,7 +1263,7 @@ this.Close();
                 myMinutes = 0;
             }
 
-            long millisecond = long.Parse(myTime.Substring(colonPos + 1).Replace(".", ""));
+            long millisecond = long.Parse(myTime.Substring(colonPos + 1,5).Replace(".", ""));
             return 6000 * myMinutes + millisecond;
         }
 
