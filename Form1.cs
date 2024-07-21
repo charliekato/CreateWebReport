@@ -92,7 +92,8 @@ namespace CreateWebReport
                 txtBoxHostName.Text,
                 Convert.ToInt32(txtBoxPort.Text),
                 txtBoxUserName.Text,
-                txtBoxKeyFile.Text);
+                txtBoxKeyFile.Text,
+                txtBoxYouTube.Text);
             Cursor.Current = Cursors.Default;
 
         }
@@ -172,6 +173,7 @@ this.Close();
     }
     public static class Html
     {
+        static string thisYouTubeURL;
         public static void CreateHTML(
             string mdbFile,    // Seiko Result System database.
             string workDir,    // local PC work directory
@@ -183,7 +185,8 @@ this.Close();
             string hostName,
             int port,
             string userName,
-            string keyFile)
+            string keyFile,
+            string youTubeURL)
         {
             string indexFilePath;
             string rankingFilePath;
@@ -191,6 +194,7 @@ this.Close();
             string teamScoreFilePath;
             string distDir = htmlDir + "/";
             MDBInterface mdb2Html;
+            thisYouTubeURL = youTubeURL;
             if (!File.Exists(mdbFile))
             {
                 MessageBox.Show("MDB File (" + mdbFile + ")が見つかりません。");
@@ -300,11 +304,13 @@ this.Close();
                         }
 
                         List<int> records = new List<int>();
-                        for (position = 1; ; position++)
+                        int numSwimmers = mdb.GetHowManySwimmers(uid);
+
+                        for (position = 1; position<=numSwimmers; position++) ////2024/6/18 bug fix using HowMany...
                         {
                             records.Clear();
                             mdb.GetResultNo(ref records,uid,position);
-                            if (records.Count == 0) break;
+                            //if (records.Count == 0) break; //<--!!bug
                             for (int rn=0; rn<records.Count; rn++)
                             {
                                 Result result = mdb.GetResult(records[rn]);
@@ -562,6 +568,10 @@ this.Close();
             {
                 writer.WriteLine($"<h2>{mdb.GetEventName()} &nbsp;&nbsp;開催地 : {mdb.GetEventVenue()} &nbsp;&nbsp;期日 : {mdb.GetEventDate()}</h2>");
             }
+            if (thisYouTubeURL!="")
+            {
+                writer.WriteLine($"<h1><a href=\"{thisYouTubeURL} \">YouTube ライブ配信はこちら</a></h1>");
+            }
 
         }
         static void CreateIndexHTML(MDBInterface mdb, string myName, string rankingFile, string kanproFile)
@@ -665,6 +675,9 @@ this.Close();
         int[] gameRecord4UID;
         public int GetGameRecord(int uid) { return gameRecord4UID[uid]; }
         int[] programNo;
+        int[] numSwimmers4UID;
+        public int GetHowManySwimmers(int uid) { return numSwimmers4UID[uid]; }
+        
         public int GetUIDFromPrgNo(int prgNo) { return UIDFromProgramNo[prgNo]; }
         public string GetClassFromUID(int uid) { return className[ClassNoByUID[uid]]; }
         public string GetGenderFromUID(int uid) { return genderStr[genderByUID[uid]]; }
@@ -898,6 +911,7 @@ this.Close();
             ClassNoByUID = new int[maxUID];
             gameRecord4UID = new int[maxUID];
             programNo = new int[maxUID];
+            numSwimmers4UID = new int[maxUID];
         }
         void ReadProgramDB()
         {
@@ -1114,7 +1128,8 @@ this.Close();
         }
 
 
-            
+
+
         void ReadResultDB()
         {
             OleDbConnection conn = new OleDbConnection(magicWord + mdbFile);
@@ -1136,6 +1151,7 @@ this.Close();
                         {
                             result= new Result();
                             result.uid = Misc.Obj2Int(dr["UID"]);
+                            numSwimmers4UID[result.uid]++;
                             result.kumi = Misc.Obj2Int(dr["組"]);
                             result.lapString = Misc.RecordConcatenate(dr["ラップ１"], dr["ラップ" +
                                 "２"], dr["ラップ３"]);

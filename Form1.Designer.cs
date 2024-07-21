@@ -62,13 +62,16 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblYouTube = new System.Windows.Forms.Label();
+            this.txtBoxYouTube = new System.Windows.Forms.TextBox();
+            this.chkBoxInitSend = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblMdbFile
             // 
             this.lblMdbFile.AutoSize = true;
             this.lblMdbFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblMdbFile.Location = new System.Drawing.Point(126, 128);
+            this.lblMdbFile.Location = new System.Drawing.Point(126, 126);
             this.lblMdbFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMdbFile.Name = "lblMdbFile";
             this.lblMdbFile.Size = new System.Drawing.Size(138, 33);
@@ -79,7 +82,7 @@
             // 
             this.lblHtmlPath.AutoSize = true;
             this.lblHtmlPath.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblHtmlPath.Location = new System.Drawing.Point(126, 725);
+            this.lblHtmlPath.Location = new System.Drawing.Point(126, 700);
             this.lblHtmlPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHtmlPath.Name = "lblHtmlPath";
             this.lblHtmlPath.Size = new System.Drawing.Size(196, 33);
@@ -90,7 +93,7 @@
             // 
             this.lblIndexFile.AutoSize = true;
             this.lblIndexFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblIndexFile.Location = new System.Drawing.Point(126, 206);
+            this.lblIndexFile.Location = new System.Drawing.Point(126, 200);
             this.lblIndexFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIndexFile.Name = "lblIndexFile";
             this.lblIndexFile.Size = new System.Drawing.Size(216, 33);
@@ -101,7 +104,7 @@
             // 
             this.lblPrgResult.AutoSize = true;
             this.lblPrgResult.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblPrgResult.Location = new System.Drawing.Point(126, 276);
+            this.lblPrgResult.Location = new System.Drawing.Point(126, 267);
             this.lblPrgResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrgResult.Name = "lblPrgResult";
             this.lblPrgResult.Size = new System.Drawing.Size(303, 33);
@@ -112,7 +115,7 @@
             // 
             this.lblRanking.AutoSize = true;
             this.lblRanking.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblRanking.Location = new System.Drawing.Point(126, 350);
+            this.lblRanking.Location = new System.Drawing.Point(126, 338);
             this.lblRanking.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRanking.Name = "lblRanking";
             this.lblRanking.Size = new System.Drawing.Size(177, 33);
@@ -122,7 +125,7 @@
             // txtBoxMDBFile
             // 
             this.txtBoxMDBFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxMDBFile.Location = new System.Drawing.Point(453, 128);
+            this.txtBoxMDBFile.Location = new System.Drawing.Point(453, 126);
             this.txtBoxMDBFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxMDBFile.Name = "txtBoxMDBFile";
             this.txtBoxMDBFile.Size = new System.Drawing.Size(721, 39);
@@ -131,7 +134,7 @@
             // txtBoxHtmlPath
             // 
             this.txtBoxHtmlPath.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxHtmlPath.Location = new System.Drawing.Point(453, 719);
+            this.txtBoxHtmlPath.Location = new System.Drawing.Point(453, 694);
             this.txtBoxHtmlPath.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxHtmlPath.Name = "txtBoxHtmlPath";
             this.txtBoxHtmlPath.Size = new System.Drawing.Size(726, 39);
@@ -140,7 +143,7 @@
             // txtBoxIndexFile
             // 
             this.txtBoxIndexFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxIndexFile.Location = new System.Drawing.Point(453, 200);
+            this.txtBoxIndexFile.Location = new System.Drawing.Point(453, 194);
             this.txtBoxIndexFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxIndexFile.Name = "txtBoxIndexFile";
             this.txtBoxIndexFile.Size = new System.Drawing.Size(303, 39);
@@ -149,7 +152,7 @@
             // txtBoxPrgResult
             // 
             this.txtBoxPrgResult.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxPrgResult.Location = new System.Drawing.Point(453, 272);
+            this.txtBoxPrgResult.Location = new System.Drawing.Point(453, 263);
             this.txtBoxPrgResult.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxPrgResult.Name = "txtBoxPrgResult";
             this.txtBoxPrgResult.Size = new System.Drawing.Size(303, 39);
@@ -158,7 +161,7 @@
             // txtBoxRanking
             // 
             this.txtBoxRanking.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxRanking.Location = new System.Drawing.Point(453, 344);
+            this.txtBoxRanking.Location = new System.Drawing.Point(453, 332);
             this.txtBoxRanking.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxRanking.Name = "txtBoxRanking";
             this.txtBoxRanking.Size = new System.Drawing.Size(303, 39);
@@ -167,7 +170,7 @@
             // BtnRun
             // 
             this.BtnRun.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.BtnRun.Location = new System.Drawing.Point(351, 975);
+            this.BtnRun.Location = new System.Drawing.Point(351, 1012);
             this.BtnRun.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.BtnRun.Name = "BtnRun";
             this.BtnRun.Size = new System.Drawing.Size(162, 68);
@@ -179,7 +182,7 @@
             // btnAutoRun
             // 
             this.btnAutoRun.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnAutoRun.Location = new System.Drawing.Point(823, 975);
+            this.btnAutoRun.Location = new System.Drawing.Point(823, 1012);
             this.btnAutoRun.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btnAutoRun.Name = "btnAutoRun";
             this.btnAutoRun.Size = new System.Drawing.Size(154, 68);
@@ -192,7 +195,7 @@
             // 
             this.lblInterval.AutoSize = true;
             this.lblInterval.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblInterval.Location = new System.Drawing.Point(656, 1077);
+            this.lblInterval.Location = new System.Drawing.Point(656, 1114);
             this.lblInterval.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInterval.Name = "lblInterval";
             this.lblInterval.Size = new System.Drawing.Size(259, 33);
@@ -202,7 +205,7 @@
             // txtBoxInterval
             // 
             this.txtBoxInterval.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxInterval.Location = new System.Drawing.Point(962, 1073);
+            this.txtBoxInterval.Location = new System.Drawing.Point(962, 1110);
             this.txtBoxInterval.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxInterval.Name = "txtBoxInterval";
             this.txtBoxInterval.Size = new System.Drawing.Size(67, 39);
@@ -212,7 +215,7 @@
             // txtBoxScoreFile
             // 
             this.txtBoxScoreFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxScoreFile.Location = new System.Drawing.Point(453, 413);
+            this.txtBoxScoreFile.Location = new System.Drawing.Point(453, 398);
             this.txtBoxScoreFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxScoreFile.Name = "txtBoxScoreFile";
             this.txtBoxScoreFile.Size = new System.Drawing.Size(303, 39);
@@ -222,7 +225,7 @@
             // 
             this.lblScoreFile.AutoSize = true;
             this.lblScoreFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblScoreFile.Location = new System.Drawing.Point(126, 417);
+            this.lblScoreFile.Location = new System.Drawing.Point(126, 405);
             this.lblScoreFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblScoreFile.Name = "lblScoreFile";
             this.lblScoreFile.Size = new System.Drawing.Size(151, 33);
@@ -256,7 +259,7 @@
             // 
             this.lblAutoRun.AutoSize = true;
             this.lblAutoRun.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblAutoRun.Location = new System.Drawing.Point(832, 925);
+            this.lblAutoRun.Location = new System.Drawing.Point(832, 962);
             this.lblAutoRun.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAutoRun.Name = "lblAutoRun";
             this.lblAutoRun.Size = new System.Drawing.Size(143, 33);
@@ -266,7 +269,7 @@
             // txtBoxKeyFile
             // 
             this.txtBoxKeyFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxKeyFile.Location = new System.Drawing.Point(451, 790);
+            this.txtBoxKeyFile.Location = new System.Drawing.Point(451, 765);
             this.txtBoxKeyFile.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxKeyFile.Name = "txtBoxKeyFile";
             this.txtBoxKeyFile.Size = new System.Drawing.Size(726, 39);
@@ -276,7 +279,7 @@
             // 
             this.lblKeyFile.AutoSize = true;
             this.lblKeyFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblKeyFile.Location = new System.Drawing.Point(126, 790);
+            this.lblKeyFile.Location = new System.Drawing.Point(126, 765);
             this.lblKeyFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblKeyFile.Name = "lblKeyFile";
             this.lblKeyFile.Size = new System.Drawing.Size(201, 33);
@@ -286,9 +289,9 @@
             // btnMDBFile
             // 
             this.btnMDBFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnMDBFile.Location = new System.Drawing.Point(1258, 126);
+            this.btnMDBFile.Location = new System.Drawing.Point(1257, 121);
             this.btnMDBFile.Name = "btnMDBFile";
-            this.btnMDBFile.Size = new System.Drawing.Size(101, 52);
+            this.btnMDBFile.Size = new System.Drawing.Size(109, 52);
             this.btnMDBFile.TabIndex = 25;
             this.btnMDBFile.Text = "選択";
             this.btnMDBFile.UseVisualStyleBackColor = true;
@@ -297,7 +300,7 @@
             // btnKeyFile
             // 
             this.btnKeyFile.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnKeyFile.Location = new System.Drawing.Point(1258, 790);
+            this.btnKeyFile.Location = new System.Drawing.Point(1258, 765);
             this.btnKeyFile.Name = "btnKeyFile";
             this.btnKeyFile.Size = new System.Drawing.Size(104, 48);
             this.btnKeyFile.TabIndex = 28;
@@ -308,7 +311,7 @@
             // txtBoxHostName
             // 
             this.txtBoxHostName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxHostName.Location = new System.Drawing.Point(453, 600);
+            this.txtBoxHostName.Location = new System.Drawing.Point(453, 575);
             this.txtBoxHostName.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxHostName.Name = "txtBoxHostName";
             this.txtBoxHostName.Size = new System.Drawing.Size(303, 39);
@@ -318,7 +321,7 @@
             // 
             this.lblHostName.AutoSize = true;
             this.lblHostName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblHostName.Location = new System.Drawing.Point(126, 604);
+            this.lblHostName.Location = new System.Drawing.Point(126, 579);
             this.lblHostName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHostName.Name = "lblHostName";
             this.lblHostName.Size = new System.Drawing.Size(164, 33);
@@ -329,16 +332,16 @@
             // 
             this.lblNote.AutoSize = true;
             this.lblNote.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblNote.Location = new System.Drawing.Point(312, 513);
+            this.lblNote.Location = new System.Drawing.Point(312, 491);
             this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(796, 33);
+            this.lblNote.Size = new System.Drawing.Size(894, 33);
             this.lblNote.TabIndex = 31;
-            this.lblNote.Text = "-------- Hostにアップロードする場合は以下も設定の事----";
+            this.lblNote.Text = "-------- Webサーバーにアップロードする場合は以下も設定の事----";
             // 
             // txtBoxUserName
             // 
             this.txtBoxUserName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxUserName.Location = new System.Drawing.Point(453, 656);
+            this.txtBoxUserName.Location = new System.Drawing.Point(453, 631);
             this.txtBoxUserName.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxUserName.Name = "txtBoxUserName";
             this.txtBoxUserName.Size = new System.Drawing.Size(303, 39);
@@ -348,7 +351,7 @@
             // 
             this.lblUserName.AutoSize = true;
             this.lblUserName.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblUserName.Location = new System.Drawing.Point(126, 660);
+            this.lblUserName.Location = new System.Drawing.Point(126, 635);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(164, 33);
@@ -358,7 +361,7 @@
             // txtBoxPort
             // 
             this.txtBoxPort.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtBoxPort.Location = new System.Drawing.Point(953, 598);
+            this.txtBoxPort.Location = new System.Drawing.Point(953, 573);
             this.txtBoxPort.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtBoxPort.Name = "txtBoxPort";
             this.txtBoxPort.Size = new System.Drawing.Size(76, 39);
@@ -370,7 +373,7 @@
             // 
             this.lblPort.AutoSize = true;
             this.lblPort.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblPort.Location = new System.Drawing.Point(845, 604);
+            this.lblPort.Location = new System.Drawing.Point(845, 579);
             this.lblPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(73, 33);
@@ -380,7 +383,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnBrowse.Location = new System.Drawing.Point(979, 401);
+            this.btnBrowse.Location = new System.Drawing.Point(979, 386);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(142, 50);
             this.btnBrowse.TabIndex = 36;
@@ -389,11 +392,45 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
+            // lblYouTube
+            // 
+            this.lblYouTube.AutoSize = true;
+            this.lblYouTube.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblYouTube.Location = new System.Drawing.Point(126, 899);
+            this.lblYouTube.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblYouTube.Name = "lblYouTube";
+            this.lblYouTube.Size = new System.Drawing.Size(201, 33);
+            this.lblYouTube.TabIndex = 37;
+            this.lblYouTube.Text = "YouTube URL";
+            // 
+            // txtBoxYouTube
+            // 
+            this.txtBoxYouTube.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtBoxYouTube.Location = new System.Drawing.Point(453, 893);
+            this.txtBoxYouTube.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtBoxYouTube.Name = "txtBoxYouTube";
+            this.txtBoxYouTube.Size = new System.Drawing.Size(726, 39);
+            this.txtBoxYouTube.TabIndex = 38;
+            // 
+            // chkBoxInitSend
+            // 
+            this.chkBoxInitSend.AutoSize = true;
+            this.chkBoxInitSend.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.chkBoxInitSend.Location = new System.Drawing.Point(132, 827);
+            this.chkBoxInitSend.Name = "chkBoxInitSend";
+            this.chkBoxInitSend.Size = new System.Drawing.Size(418, 37);
+            this.chkBoxInitSend.TabIndex = 40;
+            this.chkBoxInitSend.Text = "  CSS, JS ファイルも転送する";
+            this.chkBoxInitSend.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1542, 1236);
+            this.ClientSize = new System.Drawing.Size(1545, 1282);
+            this.Controls.Add(this.chkBoxInitSend);
+            this.Controls.Add(this.txtBoxYouTube);
+            this.Controls.Add(this.lblYouTube);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtBoxPort);
             this.Controls.Add(this.lblPort);
@@ -468,6 +505,9 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.Label lblYouTube;
+        private System.Windows.Forms.TextBox txtBoxYouTube;
+        private System.Windows.Forms.CheckBox chkBoxInitSend;
     }
 }
 
